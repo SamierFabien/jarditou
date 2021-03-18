@@ -25,36 +25,37 @@
             <h1>Contact</h1>
             <hr/>
             <p>*Ces zones sont obligatoires</p>
-            <form action="motMagique.html" method="POST" id="formulaireContact"/>
+            <form action="motMagique.html" method="POST" id="formulaireContact">
                 <fieldset>
                     <legend>Vos coordonnées</legend>
-                    <label for="nom">Votre nom* :</label>
-                    <input type="text" id="nom" name="nom">
-                    <br/>
-                    <label for="prenom">Votre prénom* :</label>
-                    <input type="text" id="prenom" name="prenom">
-                    <br/>
-                    <label>Sexe* :</label>
-                    <input type="radio" id="femme" name="genre" value="femme">
-                    <label for="femme">Féminin</label>
-                    <input type="radio" id="homme" name="genre" value="homme">
-                    <label for="homme">Masculin</label>
-                    <br/>
-                    <label for="naissance">Date de naissance* :</label>
-                    <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18">
-                    <br/>
-                    <label for="cp">Code postal* :</label>
-                    <input type="text" id="cp" name="cp">
-                    <br/>
-                    <label for="adresse">Adresse :</label>
-                    <input type="text" id="adresse" name="adresse">
-                    <br/>
-                    <label for="ville">Ville :</label>
-                    <input type="text" id="ville" name="ville">
-                    <br/>
-                    <label for="email">Email* :</label>
-                    <input type="email" id="email" name="email">
-                    <br/>
+                    <p>
+                        <label for="nom">Votre nom* :</label>
+                        <input type="text" id="nom" name="nom" autofocus required>
+                        <br/>
+                        <label for="prenom">Votre prénom* :</label>
+                        <input type="text" id="prenom" name="prenom" required>
+                        <br/>
+                        <label>Sexe* :</label>
+                        <input type="radio" id="femme" name="genre" value="femme" required>
+                        <label for="femme">Féminin</label>
+                        <input type="radio" id="homme" name="genre" value="homme">
+                        <label for="homme">Masculin</label>
+                        <br/>
+                        <label for="naissance">Date de naissance* :</label>
+                        <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18" required>
+                        <br/>
+                        <label for="cp">Code postal* :</label>
+                        <input type="text" id="cp" name="cp" required>
+                        <br/>
+                        <label for="adresse">Adresse :</label>
+                        <input type="text" id="adresse" name="adresse">
+                        <br/>
+                        <label for="ville">Ville :</label>
+                        <input type="text" id="ville" name="ville">
+                        <br/>
+                        <label for="email">Email* :</label>
+                        <input type="email" id="email" name="email" required>
+                    </p>
                 </fieldset>
                 <fieldset>
                     <legend>Votre demande</legend>
@@ -65,12 +66,12 @@
                         <option value="produit">Renseignement produit</option>
                         <option value="garantie">Garantie</option>
                         <option value="marchandise">Retour de marchandise</option>
-                        <option value=""></option>
                     </select>
+                    <br/>
                     <label for="question">Votre question* :</label>
-                    <textarea></textarea>
+                    <textarea id="question" required></textarea>
                 </fieldset>
-                <input type="checkbox" name="accord">
+                <input type="checkbox" name="accord" id="accord">
                 <label for="accord">* J'accepte le traitement informatique de ce formulaire</label>
                 <br/>
                 <input type="submit" value="Envoyer">
