@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Contact</title>
+    </head>
+
+    <header>
+        <div>
+            <img src="../images/jarditou_logo.jpg" alt="Logo de Jarditou." height="100"/>
+            <p>La qualité depuis 70 ans</p>
+            <nav>
+                <ul>
+                    <li><a href="../../../index.html">Accueil</a></li>
+                    <li><a href="tableau.html">Tableau</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <img src="../images/promotion.jpg" alt="PROMOTION SUR LES LAMES DE TERRASSE"/>
+        </div>
+    </header>
+    
+    <body>
+        <div>
+            <h1>Contact</h1>
+            <hr/>
+            <p>*Ces zones sont obligatoires</p>
+            <form action="motMagique.html" method="POST" id="formulaireContact"/>
+                <fieldset>
+                    <legend>Vos coordonnées</legend>
+                    <label for="nom">Votre nom* :</label>
+                    <input type="text" id="nom" name="nom">
+                    <br/>
+                    <label for="prenom">Votre prénom* :</label>
+                    <input type="text" id="prenom" name="prenom">
+                    <br/>
+                    <label>Sexe* :</label>
+                    <input type="radio" id="femme" name="genre" value="femme">
+                    <label for="femme">Féminin</label>
+                    <input type="radio" id="homme" name="genre" value="homme">
+                    <label for="homme">Masculin</label>
+                    <br/>
+                    <label for="naissance">Date de naissance* :</label>
+                    <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18">
+                    <br/>
+                    <label for="cp">Code postal* :</label>
+                    <input type="text" id="cp" name="cp">
+                    <br/>
+                    <label for="adresse">Adresse :</label>
+                    <input type="text" id="adresse" name="adresse">
+                    <br/>
+                    <label for="ville">Ville :</label>
+                    <input type="text" id="ville" name="ville">
+                    <br/>
+                    <label for="email">Email* :</label>
+                    <input type="email" id="email" name="email">
+                    <br/>
+                </fieldset>
+                <fieldset>
+                    <legend>Votre demande</legend>
+                    <label for="sujet">Sujet* :</label>
+                    <select name="sujet" id="sujet">
+                        <option value="0">Veuillez sélectionner un sujet</option>
+                        <option value="livraison">Livraison</option>
+                        <option value="produit">Renseignement produit</option>
+                        <option value="garantie">Garantie</option>
+                        <option value="marchandise">Retour de marchandise</option>
+                        <option value=""></option>
+                    </select>
+                    <label for="question">Votre question* :</label>
+                    <textarea></textarea>
+                </fieldset>
+                <input type="checkbox" name="accord">
+                <label for="accord">* J'accepte le traitement informatique de ce formulaire</label>
+                <br/>
+                <input type="submit" value="Envoyer">
+                <button type="button">Annuler</button>
+            </form>
+        </div>
+    </body>
+
+    <footer>
+        <div>
+            <ul>
+                <li><a href="mentionsLegales.html">Mentions légales</a></li>
+                <li><a href="horaires.html">Horaires</a></li>
+                <li><a href="planDuSite.html">Plan du site</a></li>
+            </ul>
+        </div>
+    </footer>
+</html>
