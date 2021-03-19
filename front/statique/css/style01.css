@@ -1,0 +1,51 @@
+body{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    border: 0px;
+    width: 1000px;
+}
+
+body div, aside, img, footer{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+#logo{
+    float: left;
+}
+
+#logoText{
+    font-size: xx-large;
+    margin-left: 50%;
+}
+
+nav, footer{
+    clear: both;
+}
+
+nav, footer{
+    background-color: black;
+    padding: 5px;
+}
+
+nav li, footer li{
+    color:crimson;
+    display: inline;
+}
+
+nav li a, footer li a{
+    color: white;
+}
+
+aside{
+    float: right;
+    width: 200px;
+    height: 800px;
+    background-color: gray;
+}
+
+a:hover{
+    color: red;
+}
