@@ -1,3 +1,4 @@
+/*Mise à dimension et centrage*/
 body{
     margin-left: auto;
     margin-right: auto;
@@ -6,12 +7,14 @@ body{
     width: 1000px;
 }
 
+/*Juste pour être sûr*/
 body div, aside, img, footer{
     padding: 0px;
     margin: 0px;
     border: 0px;
 }
 
+/*logo en float pour texte du logo à droite*/
 #logo{
     float: left;
 }
@@ -23,22 +26,17 @@ body div, aside, img, footer{
 
 nav, footer{
     clear: both;
-}
-
-nav, footer{
     background-color: black;
     padding: 5px;
 }
 
+/*Affichage des éléments de listes en inline pour les mettre
+sur la même ligne*/
 nav li, footer li{
-    color:crimson;
     display: inline;
 }
 
-nav li a, footer li a{
-    color: white;
-}
-
+/*Partie grise moche de droite*/
 aside{
     float: right;
     width: 200px;
@@ -46,6 +44,12 @@ aside{
     background-color: gray;
 }
 
+/*Couleur des liens*/
+a, a:visited{
+    color: white;
+}
+
+/*Petit effet moche sur les lien*/
 a:hover{
     color: red;
 }
