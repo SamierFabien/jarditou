@@ -32,7 +32,7 @@ nav, footer{
 
 /*Affichage des éléments de listes en inline pour les mettre
 sur la même ligne*/
-nav li, footer li{
+li{
     display: inline;
 }
 
@@ -52,4 +52,10 @@ a, a:visited{
 /*Petit effet moche sur les lien*/
 a:hover{
     color: red;
+}
+
+article p::first-letter{
+    font-size: 20px;
+    font-weight: bolder;
+    color: darkolivegreen;
 }
