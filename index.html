@@ -10,51 +10,69 @@
 </head>
 
 <body>
-    <header class="container-fluid">
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <!--float-left est déjà une classe bootstrap-->
-                <img src="front/statique/images/jarditou_logo.jpg" class="img-fluid float-left" alt="Logo de Jarditou.">
+    <div class="container">
+        <header class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <!--float-left est déjà une classe bootstrap-->
+                    <img src="front/statique/images/jarditou_logo.jpg" class="img-fluid float-left" alt="Logo de Jarditou.">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto">
+                    <!--text-center pour centrer du texte dans son parent-->
+                    <!--my-auto centre verticalement avec le block parent-->
+                    <!--align--->
+                    <h1 class="display-5 text-center my-auto">Tout le jardin</p>
+                </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto">
-                <!--text-center pour centrer du texte dans son parent-->
-                <!--my-auto centre verticalement avec le block parent-->
-                <!--align--->
-                <h1 class="display-5 text-center my-auto">Tout le jardin</p>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <!--navbar base pour une navbar-->
-    <!--navbar-(light|dark) pour choix couleur police-->
-    <!--bg-light pour BackGround lumière-->
-    <nav class="navbar navbar-expand-xs navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-light bg-light"><!---->
-        <!--navbar-brand : pour mettre le nom du site (mise en valeur)-->
-        <span class="navbar-brand">Jarditou.com</span>
-        <div class="navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="../index.html">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="front/statique/html/tableau.html">Tableau</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="front/statique/html/contact.html">Contact</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Trouver</button>
-            </form>
-        </div>
-    </nav>
+        <!--navbar base pour une navbar-->
+        <!--navbar-(light|dark) pour choix couleur police-->
+        <!--bg-light pour BackGround lumière-->
+        <nav class="navbar  navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-light bg-light">
+   
+            <!--navbar-brand : pour mettre le nom du site (mise en valeur)-->
+            <span class="navbar-brand">Jarditou.com</span>
+            
+            <!--hamburger-->
+            <!--data-target doit être le même id que celui de la div qu'on veut faire s'effondrer (collapse)-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="front/statique/html/tableau.html">Tableau</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="front/statique/html/contact.html">Contact</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline">
+                    <div class="form-group mb-2">
+                        <div class="col-md2">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+                        </div>
+                        <div class="col-md2 ">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Trouver</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
       
-    <div class="container maincontainer">
+        <section class="container">
             <section class="row">
-                <img class="img-fluid w-100" src="front/statique/images/promotion.jpg" alt="Promotion sur lames de terrasse.">
+                <img class="img-fluid my-auto" src="front/statique/images/promotion.jpg" alt="Promotion sur lames de terrasse.">
             </section>
+        </section>
 
+        <div class="container shadow">
             <div class="row">
                 <!--Partie centrale-->
                 <section class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -95,6 +113,23 @@
                 </aside>
             </div>
         </div>
+
+        <footer class="navbar navbar-expand-xs navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-dark bg-dark mt-3">
+            <!--navbar-brand : pour mettre le nom du site (mise en valeur)-->
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">mentions légales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">horaires</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">plan du site</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
