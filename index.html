@@ -25,28 +25,77 @@
         </div>
     </header>
 
-    <nav class="navbar navbar-expand-xs navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-light bg-light">
+    <!--navbar base pour une navbar-->
+    <!--navbar-(light|dark) pour choix couleur police-->
+    <!--bg-light pour BackGround lumière-->
+    <nav class="navbar navbar-expand-xs navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-light bg-light"><!---->
+        <!--navbar-brand : pour mettre le nom du site (mise en valeur)-->
         <span class="navbar-brand">Jarditou.com</span>
         <div class="navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="../index.html">Accueil</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="front/statique/html/tableau.html">Tableau</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="front/statique/html/contact.html">Contact</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Trouver</button>
-          </form>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../index.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="front/statique/html/tableau.html">Tableau</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="front/statique/html/contact.html">Contact</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Trouver</button>
+            </form>
         </div>
     </nav>
+      
+    <div class="container maincontainer">
+            <div class="row">
+                <img class="img-fluid w-100" src="front/statique/images/promotion.jpg" alt="Promotion sur lames de terrasse.">
+            </div>
 
+            <div class="row">
+                <!--Partie centrale-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <h1>Accueil</h1>
+                    <hr/>
+                    <h1>L'entreprise</h1>
+                    <article>
+                        <p>
+                            Notre entreprise familiale met tout son savoir-faire à votre disposition dans le domaine du jardin et du paysagisme.
+                        </p>
+                        <p>
+                            Créée il y a 70 ans, notre entreprise vend fleurs, arbustes, matériel à main et motorisés.
+                        </p>
+                        <p>
+                            Implantés à Amiens, nous intervenons dans tout le département de la Somme : Albert, Doullens, Péronne, Abbeville, Corbie
+                        </p>
+                    </article>
+                    <h1>qualité</h1>
+                    <article>
+                        <p>
+                            Nous mettons à votre disposition un service personnalisé, avec 1 seul interlocuteur durant tout votre projet.
+                        </p>
+                        <p>
+                            Vous serez séduit par notre expertise, nos compétences et notre sérieux.
+                        </p>
+                    </article>
+                    <h1>Devis gratuit</h1>
+                    <article>
+                        <p>
+                            Vous pouvez bien sûr contacter pour de plus amples informations ou pour une demande d’intervention. Vous souhaitez un devis ? Nous vous le réalisons gratuitement.
+                        </p>
+                    </article>
+                </div>
 
+                <!--colonne de droite-->
+                <aside class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 bg-warning">
+                        <p>[Colonne droite]</p>
+                </aside>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
