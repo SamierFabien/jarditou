@@ -12,8 +12,8 @@
 <body>
     <div class="container">
         <header class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="row p-1">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto">
                     <!--float-left est déjà une classe bootstrap-->
                     <img src="../images/jarditou_logo.jpg" class="img-fluid float-left" alt="Logo de Jarditou.">
                 </div>
@@ -82,84 +82,95 @@
                             <legend>Vos coordonnées</legend>
                             <div class="form-group">
                                 <label for="nom" class="form-check-label">Votre nom* :</label>
-                                <input type="text" id="nom" name="nom" class="form-control" autofocus required>
+                                <input type="text" id="nom" name="nom" class="form-control" required autofocus>
+                                <span id="nom-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="prenom" class="form-check-label">Votre prénom* :</label>
                                 <input type="text" id="prenom" name="prenom" class="form-control" required>
+                                <span id="prenom-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-check-label">Sexe* :</label>
 
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="femme" name="genre" value="femme" class="form-check-input" required>
+                                    <input type="radio" id="genre" name="genre" value="femme" class="form-check-input" required> <!--required-->
                                     <label for="femme" class="form-check-label">Féminin</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="homme" name="genre" value="homme" class="form-check-input">
+                                    <input type="radio" id="genre" name="genre" value="homme" class="form-check-input">
                                     <label for="homme" class="form-check-label">Masculin</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" id="neutre" name="genre" value="neutre" class="form-check-input">
-                                    <label for="neutre" class="form-check-label">Masculin</label>
+                                    <input type="radio" id="genre" name="genre" value="neutre" class="form-check-input">
+                                    <label for="neutre" class="form-check-label">Neutre</label>
                                 </div>
+                                <span id="genre-erreur"></span>
                             </div>
                             
                             <div class="form-group">
                                 <label for="naissance" class="form-check-label">Date de naissance* :</label>
-                                <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18" class="form-control" required>
+                                <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18" class="form-control" required><!--required-->
+                                <span id="naissance-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="cp" class="form-check-label">Code postal* :</label>
                                 <input type="text" id="cp" name="cp" class="form-control" required>
+                                <span id="cp-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="adresse" class="form-check-label">Adresse :</label>
                                 <input type="text" id="adresse" name="adresse" class="form-control">
+                                <spans id="adresse-erreur"></spans>
                             </div>
 
                             <div class="form-group">
                                 <label for="ville" class="form-check-label">Ville :</label>
                                 <input type="text" id="ville" name="ville" class="form-control">
+                                <span id="ville-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="form-check-label">Email* :</label>
                                 <input type="email" id="email" name="email" class="form-control" required>
+                                <span id="email-erreur"></span>
                             </div>
                         </fieldset>
                         <fieldset>
                             <legend>Votre demande</legend>
                             <div class="form-group">
                                 <label for="sujet" class="form-check-label">Sujet* :</label>
-                                <select name="sujet" id="sujet" class="form-control">
-                                    <option value="0">Veuillez sélectionner un sujet</option>
+                                <select name="sujet" id="sujet" class="form-control" required>
+                                    <option value="">Veuillez sélectionner un sujet</option>
                                     <option value="livraison">Livraison</option>
                                     <option value="produit">Renseignement produit</option>
                                     <option value="garantie">Garantie</option>
                                     <option value="marchandise">Retour de marchandise</option>
                                 </select>
+                                <span id="sujet-erreur"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question" class="form-check-label">Votre question* :</label>
                                 <textarea id="question" class="form-control" required></textarea>
+                                <spans id="question-erreur"></spans>
                             </div>
 
                             <div class="form-group">
-                                <input type="checkbox" name="accord" id="accord" class="form-check-label">
-                                <label for="accord" class="form-check-label">* J'accepte le traitement informatique de ce formulaire</label>
+                                <input type="checkbox" name="accord" id="accord" class="form-check-label" required>
+                                <label for="accord" id="accord" class="form-check-label">* J'accepte le traitement informatique de ce formulaire</label>
+                                <span id="accord-erreur"></span>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary bg-dark">Envoyer</button>
-                                <button type="reset" class="btn btn-primary bg-dark">Submit</button>
+                                <button type="submit" id="envoyer" class="btn btn-primary bg-dark">Envoyer</button>
+                                <button type="reset" class="btn btn-primary bg-dark">Effacer</button>
                             </div>
                         </fieldset>
                     </form>
@@ -187,6 +198,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+        <script src="../../dynamique/javascript/validation.js"></script>
     </div>
 </body>
 </html>
