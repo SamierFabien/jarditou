@@ -13,7 +13,7 @@ const DATE = /^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/
  * @param {function} fonctionErreur Si élément requis vide, fonctionErreur(elements[courant]).
  * @param {function} fonctionNettoyer Si élément requis renseigné, fonctionNettoyer(elements[courant]).
  * @param {Event} e Reférence à Event pour empêcher l'action du formulaire si l'élément requis n'est pas renseigné.
- * @returns 
+ * @returns Array
  */
 function elementsRequisVides(elements, fonctionErreur, fonctionNettoyer, e) {
     let tableau = [];//copie des éléments renseignés requis restants dans un tableau car si elements est un nodelist, impossible a modifier.
@@ -69,7 +69,7 @@ function nettoyer(element) {
 function requis(element) {
     element = element.id + "-erreur";
     document.getElementById(element).textContent = "Champs obligatoire.";
-    document.getElementById(element).className = "btn btn-primary bg-danger w-100 mt-1";
+    document.getElementById(element).className = "btn alert-danger w-100 mt-1";
 }
 
 /**
@@ -80,7 +80,7 @@ function requis(element) {
 function mauvaisFormatDeNom(element) {
     element = element.id + "-erreur";
     document.getElementById(element).textContent = "Mauvais format. Exemples valides : 'Dupont', 'dupont, 'Jean Claude', 'jean claude', 'Jean-Claude', 'N'Bekele'.";
-    document.getElementById(element).className = "btn btn-primary bg-warning w-100 mt-1";
+    document.getElementById(element).className = "btn alert-warning w-100 mt-1";
 }
 
 /**
@@ -91,7 +91,7 @@ function mauvaisFormatDeNom(element) {
  function mauvaisFormatDeDate(element) {
     element = element.id + "-erreur";
     document.getElementById(element).textContent = "Mauvais format. Formats supporté : '00/00/0000' '0000/00/00' avec des slashs, espaces et tirets comme séparateurs.";
-    document.getElementById(element).className = "btn btn-primary bg-warning w-100 mt-1";
+    document.getElementById(element).className = "btn alert-warning w-100 mt-1";
 }
 
 /**
@@ -102,7 +102,7 @@ function mauvaisFormatDeNom(element) {
 function mauvaisFormatDeMail(element) {
     element = element.id + "-erreur";
     document.getElementById(element).textContent = "Mauvais format. Format supporté : 'moi@exemple.com'.";
-    document.getElementById(element).className = "btn btn-primary bg-warning w-100 mt-1";
+    document.getElementById(element).className = "btn alert-warning w-100 mt-1";
 }
 
 /**
@@ -113,7 +113,7 @@ function mauvaisFormatDeMail(element) {
 function mauvaisFormatDeCP(element) {
     element = element.id + "-erreur";
     document.getElementById(element).textContent = "Mauvais format : composé de 5 chiffres uniquement.";
-    document.getElementById(element).className = "btn btn-primary bg-warning w-100 mt-1";
+    document.getElementById(element).className = "btn alert-warning w-100 mt-1";
 }
 
 
