@@ -16,17 +16,38 @@ class FormControl {
     const TEXTE = '#[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s-.]+#';
     const TEXTE_ERROR = 'Doit être composé de lettres et de chiffres ainsi que " ", "-", "."';
     
-    public static $regexList = [NOM, CODEPOSTAL, TELEPHONE, EMAIL, DATE, GENRE, TEXTE];
+    public static $regexList = ['nom', 'codepostal', 'telephone', 'email', 'date', 'genre', 'texte'];
     private $requiredFields;
     private $nonRequiredFields;
     private $mainErrorList = [];
     private $fieldsErrorList = [];
     
     public function __construct($requiredFields, $nonRequiredFields){
+        createRegexList();
         setRequiredFields($requiredFields);
         setNonRequiredFields($nonRequiredFields);
         requiredVerify();
         
+    }
+
+    public function createRegexList(){
+        FormControl::$regexList[
+            'nom' => ['regex' => NOM,
+                'error' => NOM_ERROR],
+            'codepostal' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            'telephone' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            'code' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            'code' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            'code' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            'code' => ['regex' => CODEPOSTAL,
+                'error' => CODEPOSTAL_ERROR],
+            
+        ]
     }
     
     public function createFieldsErrorList(){//Vraiment utile ???
