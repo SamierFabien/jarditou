@@ -15,7 +15,7 @@
             <div class="row p-1">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto">
                     <!--float-left est déjà une classe bootstrap-->
-                    <img src="../images/jarditou_logo.jpg" class="img-fluid float-left" alt="Logo de Jarditou.">
+                    <img src="../../front/statique/images/jarditou_logo.jpg" class="img-fluid float-left" alt="Logo de Jarditou.">
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto">
                     <!--text-center pour centrer du texte dans son parent-->
@@ -44,13 +44,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../../../index.html">Accueil</a>
+                        <a class="nav-link" href="../../index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="tableau.html">Tableau</a>
+                        <a class="nav-link active" href="tableau.php">Tableau</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                 </ul>
 
@@ -69,7 +69,7 @@
       
         <div class="container">
             <div class="row">
-                <img class="img-fluid my-auto" src="../images/promotion.jpg" alt="Promotion sur lames de terrasse.">
+                <img class="img-fluid my-auto" src="../../front/statique/images/promotion.jpg" alt="Promotion sur lames de terrasse.">
             </div>
         </div>
 
