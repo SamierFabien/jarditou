@@ -20,21 +20,21 @@ class FormControl {
 
     /*Regex de contrôle et erreurs associées*/
     const REQUIRED_ERROR = 'Ce champs est obligatoire';//Erreurs générique quand il n'y a rien dans un champs requis
-    const NOM_REGEX = '/\^[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ]([\'-\s])?[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]\+([\'-\s][a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]\+)?\$/';
+    const NOM_REGEX = '~^[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ]([\'-\s])?[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+([\'-\s][a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+)?$~';
     const NOM_ERROR = 'Exemples valides : "Dupont", "dupont", "Jean Claude", "jean claude", "Jean-Claude", "N\'Bekele"';
-    const CODEPOSTAL_REGEX = '/\^[0-9]{5}\$/';
+    const CODEPOSTAL_REGEX = '~^[0-9]{5}$~';
     const CODEPOSTAL_ERROR = 'Mauvais format : composé de 5 chiffres uniquement.';
-    const TELEPHONE_REGEX = '/\^[0-9]{10}$|[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}\$/';
+    const TELEPHONE_REGEX = '~^[0-9]{10}$|[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}$~';
     const TELEPHONE_ERROR = 'Exemples valides : "0699999999", "06 99 99 99 99", "06-99-99-99-99", "06.99.99.99.99"';
-    const EMAIL_REGEX = '/\^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\$/';
+    const EMAIL_REGEX = '~^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$~';
     const EMAIL_ERROR = 'Structure d\'une adresse e-mail : "moi@exemple.com".';
-    const DATE_REGEX = '/\^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/][0-9]{4}\$/';
+    const DATE_REGEX = '~^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/][0-9]{4}$~';
     const DATE_ERROR = 'Mauvais format. Formats supporté : "00/00/0000" "0000/00/00" avec des slashs, espaces et tirets comme séparateurs.';
-    const GENRE_REGEX = '/\^femme\$|\^homme\$|\^neutre\$/';
+    const GENRE_REGEX = '~^femme$|^homme$|^neutre$~';
     const GENRE_ERROR = 'Soit : "femme", "homme", ou "neutre"';
-    const TEXTE_REGEX = '/[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s-.]\+/';
+    const TEXTE_REGEX = '~[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s-.]+~';
     const TEXTE_ERROR = 'Doit être composé de lettres et de chiffres ainsi que " ", "-", "."';
-    const SELECTED_REGEX = '/\^on\$/';
+    const SELECTED_REGEX = '~^on$~';
     const SELECTED_ERROR = 'Vous devez accepter en cochant cette case';
     
     public static $regexList = [
@@ -85,7 +85,11 @@ class FormControl {
 
     public function verifyValues($reqList, $nonReqList, $fieldErrList){
         //pour chaque champs $field de $requiredFields, verifier si !preg_match(regexList[$field][regex]) > ajout de $fieldsErrorList[$field] = NOM_ERROR
+        //reqlist = 'nom' => #^regex complete$#
         
+        //$reqList = $this-> getRequiredFields();
+        //$nonReqList = $this->getNonRequiredFields();
+        //$fieldErrList = $this->getFieldsErrorList();
 
         echo '-------------------------------------------------------------------verifyValues()------------------------------------------------------------<br/>';
         foreach ($reqList as $key => $value) {//test
@@ -93,7 +97,6 @@ class FormControl {
         }
         var_dump($reqList);//test
         var_dump($fieldErrList);//test
-        
         foreach ($reqList as $field => $regName) {
             //echo "-------------------------\$field :---------------------------<br/>";
             //var_dump($field);//test
@@ -102,7 +105,7 @@ class FormControl {
             //echo "regex :<br/>";//test
             //echo FormControl::$regexList[$field]['regex'];//test
             
-            if (!preg_match($regName, $_POST[$field])) {
+            if (!preg_match(FormControl::$regexList[$regName]['regex'], $_POST[$field])) {
                 $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
             }
         }
