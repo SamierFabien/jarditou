@@ -5,6 +5,26 @@ MA QUESTION : COMMENT PASSER DES TABLEAUX PAR REFERENCE ?
 
 PAR EXEMPLE PASSER $requiredFields DANS LA FONCTION verifyRequired()
 
+
+essayer : 
+$array = array('1' => 'one',
+'2' => 'two',
+'3' => 'three');
+
+$arrayobject = new ArrayObject($array);
+
+$iterator = $arrayobject->getIterator();
+
+echo '<pre>';
+
+
+while($iterator->valid()) {
+    echo $iterator->key() . ' => ' . $iterator->current() . "\n";
+
+    $iterator->next();
+}
+echo '<pre>';
+
 */
 
 class FormControl {
@@ -53,6 +73,9 @@ class FormControl {
     private $fieldsErrorList;
     
     public function __construct($requiredFields, $nonRequiredFields){
+        echo '<pre>';
+        var_dump($_POST);
+        echo '<pre>';
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
         $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
@@ -80,16 +103,12 @@ class FormControl {
             echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
         }
         $this->setRequiredFields($reqList);
+        $this->setFieldsErrorList($fieldErrList);
     }
 
 
     public function verifyValues($reqList, $nonReqList, $fieldErrList){
         //pour chaque champs $field de $requiredFields, verifier si !preg_match(regexList[$field][regex]) > ajout de $fieldsErrorList[$field] = NOM_ERROR
-        //reqlist = 'nom' => #^regex complete$#
-        
-        //$reqList = $this-> getRequiredFields();
-        //$nonReqList = $this->getNonRequiredFields();
-        //$fieldErrList = $this->getFieldsErrorList();
 
         echo '-------------------------------------------------------------------verifyValues()------------------------------------------------------------<br/>';
         foreach ($reqList as $key => $value) {//test
@@ -99,6 +118,7 @@ class FormControl {
         var_dump($reqList);//test
         var_dump($fieldErrList);//test
         echo "<pre>";
+
         foreach ($reqList as $field => $regName) {
             echo "-------------------------\$field :---------------------------<br/>";
             echo $field.'<br/>';
@@ -106,32 +126,73 @@ class FormControl {
                 $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
             }
         }
-        /*foreach ($nonReqList as $field => $value) {
-            if (!preg_match(FormControl::$regexList[$field]['regex'], $field)) {
-                $fieldErrList[$field] = FormControl::$regexList[$field]['error'];
+        foreach ($nonReqList as $field => $regName) {
+            echo "-------------------------\$field :---------------------------<br/>";
+            echo $field.'<br/>';
+            if (!preg_match(FormControl::$regexList[$regName]['regex'], $_POST[$field])) {
+                $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
             }
-        }*/
+        }
         echo '<br/>Liste des erreurs dans les champs :<br/>';//test
-        foreach ($fieldErrList as $key => $value) {//test
-            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+        if ($fieldErrList != null) {
+            foreach ($fieldErrList as $key => $value) {//test
+                echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+            }
+        }
+        echo '<br/>Liste des erreurs principales :<br/>';//test
+        if ($this->getMainErrorList() != null) {
+            foreach ($this->getMainErrorList() as $key => $value) {//test
+                echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+            }
+        } else {
+            # code...
         }
     }
     
     public function arrayVerify($table){
-        if (is_array($table)) {//Si c'est un tableau
-            foreach ($table as $key => $value){
-                try {
-                    if (!in_array($value, FormControl::$regexList)) {//Si la valeur de chaque clé correspond bien a une regex de $regexList
-                        //Valeur ne se trouve pas dans la liste des regex disponibles.
-                        throw new Error('Expression régulière introuvable.');
+        try {
+            if (is_array($table)) {
+                foreach ($table as $key => $value) {
+                    if (!in_array($value, FormControl::$regexList)) {
+                        //Si valeur ne se trouve pas dans la liste des regex disponibles.
+                        throw new Error('Expression régulière introuvable : vérifier les tableaux passés au constructeur');
                     }
-                } catch (Exception $e) {
-                     array_push($this->getMainErrorList(), $e->getMessage());
                 }
+            } elseif (condition) {
+                //Si $table n'est pas un tableau
+                throw new Error('N\'est pas un tableau');
+            } else {
+                return true;
             }
-        } else {
-            //N'est pas un tableau
+        } catch (Exception $e) {
+            array_push($this->getMainErrorList(), $e->getMessage());
+            //TODO : retour a la page du formulaire !!!!
+        } finally {
+            return false;
         }
+
+        /*
+        try {
+            if (is_array($table)) {//Si $table est un tableau
+                foreach ($table as $key => $value){
+                    if (!in_array($value, FormControl::$regexList)) {
+                        //Si valeur ne se trouve pas dans la liste des regex disponibles.
+                        throw new Error('Expression régulière introuvable : vérifier les tableaux passés au constructeur');
+                    }
+                }
+            } elseif {
+                //Si $table n'est pas un tableau
+                throw new Error($table.' N\'est pas un tableau');
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            array_push($this->getMainErrorList(), $e->getMessage());
+            //TODO : retour a la page du formulaire !!!!
+        } finally {
+            return false;
+        }*/
+        
     }
     
     public function getRequiredFields(){
