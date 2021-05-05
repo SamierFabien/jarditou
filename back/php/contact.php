@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <!--Partie centrale-->
-                    <form action="test.php" method="POST" id="formulaireContact">
+                    <form action="test.php" method="POST" id="formulaireContact" novalidate><!--Retirer novalidate-->
                         <fieldset>
                             <legend>Vos coordonnées</legend>
                             <div class="form-group">
@@ -158,7 +158,7 @@
 
                             <div class="form-group">
                                 <label for="question" class="form-check-label">Votre question* :</label>
-                                <textarea id="question" class="form-control" required></textarea>
+                                <textarea id="question" name="question" class="form-control" required></textarea>
                                 <spans id="question-erreur"></spans>
                             </div>
 

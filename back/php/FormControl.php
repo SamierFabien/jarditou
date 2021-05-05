@@ -1,31 +1,52 @@
 <?php
+/*
+
+MA QUESTION : COMMENT PASSER DES TABLEAUX PAR REFERENCE ?
+
+PAR EXEMPLE PASSER $requiredFields DANS LA FONCTION verifyRequired()
+
+*/
+
+
 class FormControl {
+    /*Les types de contrôles*/
+    const NOM = 'nom';
+    const CODEPOSTAL = 'codepostal';
+    const TELEPHONE = 'telephone';
+    const EMAIL = 'email';
+    const DATE = 'date';
+    const GENRE = 'genre';
+    const TEXTE = 'texte';
+    const SELECTED = 'selected';
 
     /*Regex de contrôle et erreurs associées*/
-    const REQUIRED = 'Ce champs est obligatoire';
-    const NOM = '#^[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ]([\'-\s])?[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+([\'-\s][a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+)?$#';
+    const REQUIRED_ERROR = 'Ce champs est obligatoire';//Erreurs générique quand il n'y a rien dans un champs requis
+    const NOM_REGEX = '#^[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ]([\'-\s])?[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+([\'-\s][a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+)?$#';
     const NOM_ERROR = 'Exemples valides : "Dupont", "dupont", "Jean Claude", "jean claude", "Jean-Claude", "N\'Bekele"';
-    const CODEPOSTAL = '#^[0-9]{5}$#';
+    const CODEPOSTAL_REGEX = '#^[0-9]{5}$#';
     const CODEPOSTAL_ERROR = 'Mauvais format : composé de 5 chiffres uniquement.';
-    const TELEPHONE = '#^[0-9]{10}$|[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}$#';
+    const TELEPHONE_REGEX = '#^[0-9]{10}$|[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}$#';
     const TELEPHONE_ERROR = 'Exemples valides : "0699999999", "06 99 99 99 99", "06-99-99-99-99", "06.99.99.99.99"';
-    const EMAIL = '#^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$#';
+    const EMAIL_REGEX = '#^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$#';
     const EMAIL_ERROR = 'Structure d\'une adresse e-mail : "moi@exemple.com".';
-    const DATE = '#^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/][0-9]{4}$#';
+    const DATE_REGEX = '#^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/][0-9]{4}$#';
     const DATE_ERROR = 'Mauvais format. Formats supporté : "00/00/0000" "0000/00/00" avec des slashs, espaces et tirets comme séparateurs.';
-    const GENRE = '#^femme$|^homme$|^neutre$#';
+    const GENRE_REGEX = '#^femme$|^homme$|^neutre$#';
     const GENRE_ERROR = 'Soit : "femme", "homme", ou "neutre"';
-    const TEXTE = '#[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s-.]+#';
+    const TEXTE_REGEX = '#[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s-.]+#';
     const TEXTE_ERROR = 'Doit être composé de lettres et de chiffres ainsi que " ", "-", "."';
+    const SELECTED_REGEX = '#^on$#';
+    const SELECTED_ERROR = 'Vous devez accepter en cochant cette case';
     
     public static $regexList = [
-        'nom' =>        ['regex' => self::NOM,          'error' => self::NOM_ERROR],
-        'codepostal' => ['regex' => self::CODEPOSTAL,   'error' => self::CODEPOSTAL_ERROR],
-        'telephone' =>  ['regex' => self::TELEPHONE,    'error' => self::TELEPHONE_ERROR],
-        'email' =>      ['regex' => self::EMAIL,        'error' => self::EMAIL_ERROR],
-        'date' =>       ['regex' => self::DATE,         'error' => self::DATE_ERROR],
-        'genre' =>      ['regex' => self::GENRE,        'error' => self::GENRE_ERROR],
-        'texte' =>      ['regex' => self::TEXTE,        'error' => self::TEXTE_ERROR]
+        self::NOM =>        ['regex' => self::NOM_REGEX,          'error' => self::NOM_ERROR],
+        self::CODEPOSTAL => ['regex' => self::CODEPOSTAL_REGEX,   'error' => self::CODEPOSTAL_ERROR],
+        self::TELEPHONE =>  ['regex' => self::TELEPHONE_REGEX,    'error' => self::TELEPHONE_ERROR],
+        self::EMAIL =>      ['regex' => self::EMAIL_REGEX,        'error' => self::EMAIL_ERROR],
+        self::DATE =>       ['regex' => self::DATE_REGEX,         'error' => self::DATE_ERROR],
+        self::GENRE =>      ['regex' => self::GENRE_REGEX,        'error' => self::GENRE_ERROR],
+        self::TEXTE =>      ['regex' => self::TEXTE_REGEX,        'error' => self::TEXTE_ERROR],
+        self::SELECTED =>   ['regex' => self::SELECTED_REGEX,     'error' => self::SELECTED_ERROR]
     ];
     private $requiredFields;
     private $nonRequiredFields;
@@ -35,37 +56,70 @@ class FormControl {
     public function __construct($requiredFields, $nonRequiredFields){
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
-        $this->verifyRequired();
-        $this->verifyValues();
+        $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
+        $this->verifyValues($this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFieldsErrorList());
     }
     
-    public function verifyRequired(){
-        $reqList = $this->getRequiredFields();
-        $errList = $this->getFieldsErrorList();
+    public function verifyRequired($reqList, $fieldErrList){
+        //Pour chaque champs requis, dans la liste, si le $_POST[$champs] n'existe pas ou est null, on l'ajoute à la liste d'erreurs et on l'enleve de la liste des valeurs à contrôler 
+        //$reqList = $this->getRequiredFields();
+        //$fieldErrList = $this->getFieldsErrorList();
 
-        foreach ($reqList as $field){//Pour chaque champs requis du formulaire
-            if (!isset($_POST[$field])) {//Si la donnée n'existe pas
-                $post = $_POST[$field];
-                $errList[$field] = self::REQUIRED;
-                unset($reqList[array_search($post, $reqList)]);
+        echo '-------------------------------------------------------------------verifyRequired()------------------------------------------------------------<br/>';
+        foreach ($reqList as $field => $value){//Pour chaque champs requis du formulaire
+            echo $field.' testé<br/>';//test
+            if (!isset($_POST[$field]) || empty($_POST[$field])) {//Si la donnée n'existe pas
+                echo $field.' pas bon<br/>';
+                $fieldErrList[$field] = self::REQUIRED_ERROR;
+                unset($reqList[$field]);
             }
         }
+        echo '<br/>Liste des erreurs :<br/>';//test
+        foreach ($fieldErrList as $key => $value) {//test
+            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+        }
+        echo '<br/>Liste des champs requis restant à controler :<br/>';//test
+        foreach ($reqList as $key => $value) {//test
+            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+        }
+
     }
 
-    public function verifyValues(){
+
+    public function verifyValues($reqList, $nonReqList, $fieldErrList){
         //pour chaque champs $field de $requiredFields, verifier si !preg_match(regexList[$field][regex]) > ajout de $fieldsErrorList[$field] = NOM_ERROR
-        $reqList =$this-> getRequiredFields();
-        $nonReqList = $this->getNonRequiredFields();
-        $fieldErrList = $this->getFieldsErrorList();
-        foreach ($reqList as $field => $value) {
-            if (!preg_match($this->regexList[$field]['regex'], $value)) {
-                $fieldErrList[$field] = $this->regexList[$field]['error'];
+        //reqlist = 'nom' => #^regex complete$#
+        
+        //$reqList = $this-> getRequiredFields();
+        //$nonReqList = $this->getNonRequiredFields();
+        //$fieldErrList = $this->getFieldsErrorList();
+
+        echo '-------------------------------------------------------------------verifyValues()------------------------------------------------------------<br/>';
+        foreach ($reqList as $key => $value) {//test
+            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+        }
+        var_dump($reqList);
+        var_dump($fieldErrList);
+        foreach ($reqList as $field => $regName) {
+            echo "-------------------------\$field :---------------------------<br/>";
+            var_dump($field);//test
+            echo "\$regName :<br/>";
+            var_dump($regName);//test
+            echo "regex :<br/>";
+            var_dump(FormControl::$regexList[$field]['regex']);//test
+            
+            if (!preg_match($regName, $_POST[$field])) {
+                $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
             }
         }
-        foreach ($nonReqList as $field => $value) {
-            if (!preg_match($this->regexList[$field]['regex'], $value)) {
-                $fieldErrList[$field] = $this->regexList[$field]['error'];
+        /*foreach ($nonReqList as $field => $value) {
+            if (!preg_match(FormControl::$regexList[$field]['regex'], $field)) {
+                $fieldErrList[$field] = FormControl::$regexList[$field]['error'];
             }
+        }*/
+        echo '<br/>Liste des erreurs dans les champs :<br/>';//test
+        foreach ($fieldErrList as $key => $value) {//test
+            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
         }
     }
     
@@ -73,7 +127,7 @@ class FormControl {
         if (is_array($table)) {//Si c'est un tableau
             foreach ($table as $key => $value){
                 try {
-                    if (!in_array($value, FormControl::$regexList)) {//Si la veleur de chaque clé correspond bien a une regex de $regexList
+                    if (!in_array($value, FormControl::$regexList)) {//Si la valeur de chaque clé correspond bien a une regex de $regexList
                         //Valeur ne se trouve pas dans la liste des regex disponibles.
                         throw new Error('Expression régulière introuvable.');
                     }
@@ -91,7 +145,7 @@ class FormControl {
     }
     
     public function setRequiredFields($tableau){//VERIFIER
-        $requiredFields = $tableau;
+        $this->requiredFields = $tableau;
     }
     
     public function getNonRequiredFields(){
@@ -99,7 +153,7 @@ class FormControl {
     }
     
     public function setNonRequiredFields($tableau){//VERIFIER
-        $nonRequiredFields = $tableau;
+        $this->nonRequiredFields = $tableau;
     }
     
     public function getMainErrorList() {
@@ -107,7 +161,7 @@ class FormControl {
     }
     
     public function setMainErrorList($tableau) {//VERIFIER
-        $mainErrorList = $tableau;
+        $this->mainErrorList = $tableau;
     }
     
     public function getFieldsErrorList() {

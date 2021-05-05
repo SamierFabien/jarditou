@@ -2,23 +2,40 @@
 require 'FormControl.php';
 //var_dump($_POST);
 
+/*
 $requiredFields = [
     "nom" => FormControl::NOM,
     "prenom" => FormControl::NOM,
     "genre" => FormControl::GENRE,
-    "date" => FormControl::DATE,
+    "naissance" => FormControl::DATE,
     "cp" => FormControl::CODEPOSTAL,
     "email" => FormControl::EMAIL,
     "sujet" => FormControl::TEXTE,
     "question" => FormControl::TEXTE,
-    "accord" => "on"
+    "accord" => FormControl::SELECTED
 ];
 $nonRequiredFields = [
     "adresse" => FormControl::TEXTE,
     "ville" => FormControl::TEXTE
 ];
-var_dump($requiredFields);
-var_dump($nonRequiredFields);
+*/
+
+$requiredFields = [
+    "nom" => "nom",
+    "prenom" => "nom",
+    "genre" => "genre",
+    "naissance" => "date",
+    "cp" => "codepostal",
+    "email" => "email",
+    "sujet" => "texte",
+    "question" => "texte",
+    "accord" => "selected"
+];
+$nonRequiredFields = [
+    "adresse" => FormControl::TEXTE,
+    "ville" => FormControl::TEXTE
+];
+
 
 $verify = new FormControl($requiredFields, $nonRequiredFields);
 ?>
