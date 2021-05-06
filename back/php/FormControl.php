@@ -200,7 +200,9 @@ class FormControl {
     }
     
     public function setRequiredFields($tableau){//VERIFIER
-        $this->requiredFields = $tableau;
+        if ($this->arrayVerify($tableau)) {
+            $this->requiredFields = new ArrayObject($tableau);
+        }
     }
     
     public function getNonRequiredFields(){
@@ -208,7 +210,9 @@ class FormControl {
     }
     
     public function setNonRequiredFields($tableau){//VERIFIER
-        $this->nonRequiredFields = $tableau;
+        if ($this->arrayVerify($tableau)) {
+            $this->nonRequiredFields = new ArrayObject($tableau);
+        }
     }
     
     public function getMainErrorList() {
@@ -224,6 +228,8 @@ class FormControl {
     }
     
     public function setFieldsErrorList($tableau) {//VERIFIER
-        $fieldsErrorList = $tableau;
+        if ($this->arrayVerify($tableau)) {
+            $this->fieldsErrorList = new ArrayObject($tableau);
+        }
     }
 }
