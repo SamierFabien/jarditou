@@ -2,6 +2,10 @@
 session_start();
 require 'FormControl.php';
 
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+
 $requiredFields = array(
     "nom" => "nom",
     "prenom" => "nom",

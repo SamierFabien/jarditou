@@ -82,19 +82,20 @@ $verify = FormControl::unSerialization();
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <!--Partie centrale-->
-                    <form action="test.php" method="POST" id="formulaireContact" novalidate><!--Retirer novalidate-->
+                    <form action="contactTraitement.php" method="POST" id="formulaireContact" novalidate><!--Retirer novalidate-->
                         <fieldset>
                             <legend>Vos coordonnées</legend>
                             <div class="form-group">
                                 <label for="nom" class="form-check-label">Votre nom* :</label>
-                                <input type="text" id="nom" name="nom" class="form-control" required autofocus>
-                                <span id="nom-erreur"><?php echo $verify->displayFieldError('nom'); ?></span>
+                                <input type="text" id="nom" name="nom" class="form-control" <?php echo FormControl::returnField('nom'); ?> required autofocus>
+                                <span id="nom-erreur"></span>
+                                <noscript><?php echo FormControl::returnFieldError('nom'); ?></noscript>
                             </div>
 
                             <div class="form-group">
                                 <label for="prenom" class="form-check-label">Votre prénom* :</label>
-                                <input type="text" id="prenom" name="prenom" class="form-control" required>
-                                <span id="prenom-erreur"><?php echo $verify->displayFieldError('prenom'); ?></span>
+                                <input type="text" id="prenom" name="prenom" class="form-control" <?php echo FormControl::returnField('prenom'); ?> required>
+                                <span id="prenom-erreur"><?php echo FormControl::returnFieldError('prenom'); ?></span>
                             </div>
 
                             <div class="form-group">
@@ -114,37 +115,37 @@ $verify = FormControl::unSerialization();
                                     <input type="radio" id="genre" name="genre" value="neutre" class="form-check-input">
                                     <label for="neutre" class="form-check-label">Neutre</label>
                                 </div>
-                                <span id="genre-erreur"><?php echo $verify->displayFieldError('genre'); ?></span>
+                                <span id="genre-erreur"><?php echo FormControl::returnFieldError('genre'); ?></span>
                             </div>
                             
                             <div class="form-group">
                                 <label for="naissance" class="form-check-label">Date de naissance* :</label>
                                 <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18" class="form-control" required><!--required-->
-                                <span id="naissance-erreur"><?php echo $verify->displayFieldError('naissance'); ?></span>
+                                <span id="naissance-erreur"><?php echo FormControl::returnFieldError('naissance'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="cp" class="form-check-label">Code postal* :</label>
-                                <input type="text" id="cp" name="cp" class="form-control" required>
-                                <span id="cp-erreur"><?php echo $verify->displayFieldError('cp'); ?></span>
+                                <input type="text" id="cp" name="cp" class="form-control" <?php echo FormControl::returnField('cp'); ?> required>
+                                <span id="cp-erreur"><?php echo FormControl::returnFieldError('cp'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="adresse" class="form-check-label">Adresse :</label>
-                                <input type="text" id="adresse" name="adresse" class="form-control">
-                                <spans id="adresse-erreur"><?php echo $verify->displayFieldError('adresse'); ?></spans>
+                                <input type="text" id="adresse" name="adresse" class="form-control" <?php echo FormControl::returnField('adresse'); ?>>
+                                <spans id="adresse-erreur"><?php echo FormControl::returnFieldError('adresse'); ?></spans>
                             </div>
 
                             <div class="form-group">
                                 <label for="ville" class="form-check-label">Ville :</label>
-                                <input type="text" id="ville" name="ville" class="form-control">
-                                <span id="ville-erreur"><?php echo $verify->displayFieldError('ville'); ?></span>
+                                <input type="text" id="ville" name="ville" class="form-control" <?php echo FormControl::returnField('ville'); ?>>
+                                <span id="ville-erreur"><?php echo FormControl::returnFieldError('ville'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="form-check-label">Email* :</label>
-                                <input type="email" id="email" name="email" class="form-control" required>
-                                <span id="email-erreur"><?php echo $verify->displayFieldError('email'); ?></span>
+                                <input type="email" id="email" name="email" class="form-control" <?php echo FormControl::returnField('email'); ?> required>
+                                <span id="email-erreur"><?php echo FormControl::returnFieldError('email'); ?></span>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -158,19 +159,19 @@ $verify = FormControl::unSerialization();
                                     <option value="garantie">Garantie</option>
                                     <option value="marchandise">Retour de marchandise</option>
                                 </select>
-                                <span id="sujet-erreur"><?php echo $verify->displayFieldError('sujet'); ?></span>
+                                <span id="sujet-erreur"><?php echo FormControl::returnFieldError('sujet'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question" class="form-check-label">Votre question* :</label>
-                                <textarea id="question" name="question" class="form-control" required></textarea>
-                                <spans id="question-erreur"><?php echo $verify->displayFieldError('question'); ?></spans>
+                                <textarea id="question" name="question" class="form-control" <?php echo FormControl::returnField('question'); ?> required></textarea>
+                                <spans id="question-erreur"><?php echo FormControl::returnFieldError('question'); ?></spans>
                             </div>
 
                             <div class="form-group">
                                 <input type="checkbox" name="accord" id="accord" class="form-check-label" required>
                                 <label for="accord" id="accord" class="form-check-label">* J'accepte le traitement informatique de ce formulaire</label>
-                                <span id="accord-erreur"><?php echo $verify->displayFieldError('accord'); ?></span>
+                                <span id="accord-erreur"><?php echo FormControl::returnFieldError('accord'); ?></span>
                             </div>
 
                             <div class="form-group">
@@ -203,7 +204,8 @@ $verify = FormControl::unSerialization();
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-        <!--<script src="../../front/dynamique/javascript/validation.js"></script> -->
+        <!--<script src="../../front/dynamique/javascript/validation.js"></script>-->
+        <script src="../../front/dynamique/javascript/validation.js"></script>
     </div>
 </body>
 </html>

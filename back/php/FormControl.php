@@ -81,20 +81,32 @@ class FormControl {
         self::TEXTE =>      ['regex' => self::TEXTE_REGEX,        'error' => self::TEXTE_ERROR],
         self::SELECTED =>   ['regex' => self::SELECTED_REGEX,     'error' => self::SELECTED_ERROR]
     ];
+    private $formValues;
     private $requiredFields;
     private $nonRequiredFields;
     private $fieldsErrorList;
     
     public function __construct($requiredFields, $nonRequiredFields){
         $this->destroySession();
+        //$this->formValues = new ArrayObject();
+        $this->requiredFields = new ArrayObject();
+        $this->nonRequiredFields = new ArrayObject();
         $this->fieldsErrorList = new ArrayObject();
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
+        $this->hydrate(/*$this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFormValues()*/);
         $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
         $this->verifyValues($this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFieldsErrorList());
     }
 
     public function __clone(){}
+
+    public function hydrate(/*$reqList, $nonReqList, $formValues*/){
+        $_SESSION['formValues'] = $_POST;
+        echo '<pre>';
+        var_dump($_SESSION['formValues']);
+        echo '</pre>';
+    }
     
     public function verifyRequired($reqList, $fieldsErrList){
         //Pour chaque champs requis, dans la liste, si le $_POST[$champs] n'existe pas ou est null, on l'ajoute à la liste d'erreurs et on l'enleve de la liste des valeurs à contrôler 
@@ -121,6 +133,7 @@ class FormControl {
                 $fieldsErrList[$field] = self::$regexList[$regName]['error'];
             }
         }
+        $_SESSION['formErrors'] = $fieldsErrList;
     }
 
     public function root($successPage, $errorPage){
@@ -131,10 +144,31 @@ class FormControl {
         }
     }
 
-    public function displayFieldError($field){//A TESTER
-        foreach ($this->getFieldsErrorList() as $key => $value) {
-            if ($key === $field) {
-                return $value;
+    public static function returnField($field){//A TESTER
+        if (isset($_SESSION['formValues']) && !is_null($_SESSION['formValues'])) {
+            foreach ($_SESSION['formValues'] as $key => $value) {
+                if ($key === $field) {
+                    return 'value="'.$value.'"';
+                }
+            }
+        }
+        
+    }
+
+    public static function returnFieldError($field){//A TESTER
+        if (isset($_SESSION['formErrors']) && !is_null($_SESSION['formErrors'])) {
+            foreach ($_SESSION['formErrors'] as $key => $value) {
+                if ($key === $field) {
+                    return $value;
+                }
+            }
+        }
+    }
+
+    public static function displayFieldErrors(){//A TESTER
+        if (isset($_SESSION['formErrors']) && !is_null($_SESSION['formErrors'])) {
+            foreach ($_SESSION['formErrors'] as $key => $value) {
+                echo $value;
             }
         }
     }
@@ -144,7 +178,7 @@ class FormControl {
     }
 
     public static function unSerialization(){
-        if (isset($_SESSION['formControl']) && $_SESSION['formControl'] != null){
+        if (isset($_SESSION['formControl']) && !is_null($_SESSION['formControl'])){
             return unserialize($_SESSION['formControl']);
         }
     }
@@ -152,6 +186,12 @@ class FormControl {
     public function destroySession(){
         if (isset($_SESSION['formControl'])) {
             unset($_SESSION['formControl']);
+        }
+        if (isset($_SESSION['formValues'])) {
+            unset($_SESSION['formValues']);
+        }
+        if (isset($_SESSION['formErrors'])) {
+            unset($_SESSION['formErrors']);
         }
     }
     
@@ -181,5 +221,9 @@ class FormControl {
     
     public function setFieldsErrorList($tableau) {
         $fieldsErrorList = new ArrayObject($tableau);
+    }
+
+    public function getFormValues() {
+        return $this->formValues;
     }
 }
