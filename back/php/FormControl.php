@@ -73,16 +73,15 @@ class FormControl {
     private $fieldsErrorList;
     
     public function __construct($requiredFields, $nonRequiredFields){
-        echo '<pre>';
-        var_dump($_POST);
-        echo '<pre>';
+        $this->mainErrorList = new ArrayObject();
+        $this->fieldsErrorList = new ArrayObject();
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
         $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
         $this->verifyValues($this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFieldsErrorList());
     }
     
-    public function verifyRequired($reqList, $fieldErrList){
+    public function verifyRequired($reqList, $fieldsErrList){
         //Pour chaque champs requis, dans la liste, si le $_POST[$champs] n'existe pas ou est null, on l'ajoute à la liste d'erreurs et on l'enleve de la liste des valeurs à contrôler 
 
         echo '-------------------------------------------------------------------verifyRequired()------------------------------------------------------------<br/>';
@@ -90,24 +89,24 @@ class FormControl {
             echo $field.' testé<br/>';//test
             if (!isset($_POST[$field]) || empty($_POST[$field])) {//Si la donnée n'existe pas
                 echo $field.' pas bon<br/>';
-                $fieldErrList[$field] = self::REQUIRED_ERROR;
+                $fieldsErrList[$field] = self::REQUIRED_ERROR;
                 unset($reqList[$field]);
             }
         }
         echo '<br/>Liste des erreurs :<br/>';//test
-        foreach ($fieldErrList as $key => $value) {//test
+        foreach ($fieldsErrList as $key => $value) {//test
             echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
         }
         echo '<br/>Liste des champs requis restant à controler :<br/>';//test
         foreach ($reqList as $key => $value) {//test
             echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
         }
-        $this->setRequiredFields($reqList);
-        $this->setFieldsErrorList($fieldErrList);
+        //$this->setRequiredFields($reqList);
+        //$this->setFieldsErrorList($fieldsErrList);
     }
 
 
-    public function verifyValues($reqList, $nonReqList, $fieldErrList){
+    public function verifyValues($reqList, $nonReqList, $fieldsErrList){
         //pour chaque champs $field de $requiredFields, verifier si !preg_match(regexList[$field][regex]) > ajout de $fieldsErrorList[$field] = NOM_ERROR
 
         echo '-------------------------------------------------------------------verifyValues()------------------------------------------------------------<br/>';
@@ -116,26 +115,26 @@ class FormControl {
         }
         echo "<pre>";
         var_dump($reqList);//test
-        var_dump($fieldErrList);//test
+        var_dump($fieldsErrList);//test
         echo "<pre>";
 
         foreach ($reqList as $field => $regName) {
             echo "-------------------------\$field :---------------------------<br/>";
             echo $field.'<br/>';
-            if (!preg_match(FormControl::$regexList[$regName]['regex'], $_POST[$field])) {
-                $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
+            if (!preg_match(self::$regexList[$regName]['regex'], $_POST[$field])) {
+                $fieldsErrList[$field] = self::$regexList[$regName]['error'];
             }
         }
         foreach ($nonReqList as $field => $regName) {
             echo "-------------------------\$field :---------------------------<br/>";
             echo $field.'<br/>';
-            if (!preg_match(FormControl::$regexList[$regName]['regex'], $_POST[$field])) {
-                $fieldErrList[$field] = FormControl::$regexList[$regName]['error'];
+            if (!preg_match(self::$regexList[$regName]['regex'], $_POST[$field])) {
+                $fieldsErrList[$field] = self::$regexList[$regName]['error'];
             }
         }
         echo '<br/>Liste des erreurs dans les champs :<br/>';//test
-        if ($fieldErrList != null) {
-            foreach ($fieldErrList as $key => $value) {//test
+        if ($fieldsErrList != null) {
+            foreach ($fieldsErrList as $key => $value) {//test
                 echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
             }
         }
@@ -144,8 +143,6 @@ class FormControl {
             foreach ($this->getMainErrorList() as $key => $value) {//test
                 echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
             }
-        } else {
-            # code...
         }
     }
     
@@ -153,46 +150,20 @@ class FormControl {
         try {
             if (is_array($table)) {
                 foreach ($table as $key => $value) {
-                    if (!in_array($value, FormControl::$regexList)) {
+                    if (!in_array($value, self::$regexList)) {
                         //Si valeur ne se trouve pas dans la liste des regex disponibles.
                         throw new Error('Expression régulière introuvable : vérifier les tableaux passés au constructeur');
                     }
                 }
-            } elseif (condition) {
-                //Si $table n'est pas un tableau
-                throw new Error('N\'est pas un tableau');
             } else {
                 return true;
             }
         } catch (Exception $e) {
-            array_push($this->getMainErrorList(), $e->getMessage());
+            $this->getMainErrorList()->append($e->getMessage());
             //TODO : retour a la page du formulaire !!!!
         } finally {
             return false;
         }
-
-        /*
-        try {
-            if (is_array($table)) {//Si $table est un tableau
-                foreach ($table as $key => $value){
-                    if (!in_array($value, FormControl::$regexList)) {
-                        //Si valeur ne se trouve pas dans la liste des regex disponibles.
-                        throw new Error('Expression régulière introuvable : vérifier les tableaux passés au constructeur');
-                    }
-                }
-            } elseif {
-                //Si $table n'est pas un tableau
-                throw new Error($table.' N\'est pas un tableau');
-            } else {
-                return true;
-            }
-        } catch (Exception $e) {
-            array_push($this->getMainErrorList(), $e->getMessage());
-            //TODO : retour a la page du formulaire !!!!
-        } finally {
-            return false;
-        }*/
-        
     }
     
     public function getRequiredFields(){
@@ -200,7 +171,7 @@ class FormControl {
     }
     
     public function setRequiredFields($tableau){//VERIFIER
-        $this->requiredFields = $tableau;
+        $this->requiredFields = new ArrayObject($tableau);
     }
     
     public function getNonRequiredFields(){
@@ -208,7 +179,7 @@ class FormControl {
     }
     
     public function setNonRequiredFields($tableau){//VERIFIER
-        $this->nonRequiredFields = $tableau;
+        $this->nonRequiredFields = new ArrayObject($tableau);
     }
     
     public function getMainErrorList() {
@@ -216,7 +187,7 @@ class FormControl {
     }
     
     public function setMainErrorList($tableau) {//VERIFIER
-        $this->mainErrorList = $tableau;
+        $this->mainErrorList = new ArrayObject($tableau);
     }
     
     public function getFieldsErrorList() {
@@ -224,6 +195,6 @@ class FormControl {
     }
     
     public function setFieldsErrorList($tableau) {//VERIFIER
-        $fieldsErrorList = $tableau;
+        $fieldsErrorList = new ArrayObject($tableau);
     }
 }

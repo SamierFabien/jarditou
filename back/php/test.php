@@ -2,6 +2,10 @@
 session_start();
 require 'FormControl.php';
 
+echo '<pre>';
+var_dump($_POST);
+echo '<pre>';
+
 $requiredFields = array(
     "nom" => "nom",
     "prenom" => "nom",
@@ -22,7 +26,8 @@ $verify = new FormControl($requiredFields, $nonRequiredFields);
 $mainErrors = $verify->getMainErrorList();
 $fieldsErrors = $verify->getFieldsErrorList();
 
-echo 'Retour sur les listes des erreurs';
+echo '<br/>';
+echo 'Retour sur les listes des erreurs :';
 echo '<pre>';
 var_dump($mainErrors);
 var_dump($fieldsErrors);

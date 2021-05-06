@@ -13,7 +13,7 @@ const DATE = /^[0-9]{4}[\s-/][0-9]{2}[\s-/][0-9]{2}$|[0-9]{2}[\s-/][0-9]{2}[\s-/
  * @param {function} fonctionErreur Si élément requis vide, fonctionErreur(elements[courant]).
  * @param {function} fonctionNettoyer Si élément requis renseigné, fonctionNettoyer(elements[courant]).
  * @param {Event} e Reférence à Event pour empêcher l'action du formulaire si l'élément requis n'est pas renseigné.
- * @returns Array
+ * @returns Array un tableau 
  */
 function elementsRequisVides(elements, fonctionErreur, fonctionNettoyer, e) {
     let tableau = [];//copie des éléments renseignés requis restants dans un tableau car si elements est un nodelist, impossible a modifier.
