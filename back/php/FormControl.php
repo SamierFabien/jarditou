@@ -1,31 +1,45 @@
 <?php
-/*
-
-MA QUESTION : COMMENT PASSER DES TABLEAUX PAR REFERENCE ?
-
-PAR EXEMPLE PASSER $requiredFields DANS LA FONCTION verifyRequired()
-
-
-essayer : 
-$array = array('1' => 'one',
-'2' => 'two',
-'3' => 'three');
-
-$arrayobject = new ArrayObject($array);
-
-$iterator = $arrayobject->getIterator();
-
-echo '<pre>';
-
-
-while($iterator->valid()) {
-    echo $iterator->key() . ' => ' . $iterator->current() . "\n";
-
-    $iterator->next();
-}
-echo '<pre>';
-
-*/
+/**
+ * Classe de vérification de formulaires
+ * 
+ * Fonctionnement
+ * Soit 3 pages : #formulaire, #traitement, #resultat
+ * 
+ * 1- #formulaire (page où se trouve le formulaire)
+ * -méthode POST obligatoire
+ * -session_start(); obligatoire
+ * -require 'chemin/vers/FormControl.php';
+ * -en début de code : 
+ *      $uneVariable = FormControl::unSerialization();
+ * -à l'endroit où on veut afficher le message d'erreur pour chaque champs :
+ *      $uneVariable->displayFieldErrors('leNomDuChamps');
+ * 
+ * 2- #traitement (page qui vérifie le formulaire)
+ * -session_start() obligatoire
+ * -require 'chemin/vers/FormControl.php';
+ * -déclaration de deux tableaux. Un qui représente les champs 'required'
+ * et le deuxième qui représente les champs non-requis.
+ * Pour les deux tableau, chaque entrée représente un champs a contrôler
+ * avec "nomDuChamps" => "typeDeControle"
+ * exemple :
+ *      $requiredFields = array(
+ *          "prenom" => "nom",
+ *          "naissance" => "date"
+ *      );
+ *      $nonRequiredFields = array(
+ *          "adresse" => 'texte',
+ *          "cp" => "codepostal"
+ *      );
+ * -à la suite des deux tableaux :
+ *      $uneVariable = new FormControl($requiredFields, $nonRequiredFields);
+ *      $uneVariable->serialization($uneVariable);
+ *      $verify->root('chemin/vers/formulaireOk.php', 'chemin/vers/formulaireErreur.php');
+ *      
+ * 3- #resultat (page qui va afficher traiter le résultat, par exemple "Votre demande a bien été enregistrée")//inutile si #resultat = traitement
+ * -session_start(); obligatoire
+ * -require 'chemin/vers/FormControl.php';
+ * -uneVariable = FormControl::unSerialization();
+ */
 
 class FormControl {
     /*Les types de contrôles*/
@@ -69,100 +83,68 @@ class FormControl {
     ];
     private $requiredFields;
     private $nonRequiredFields;
-    private $mainErrorList;
     private $fieldsErrorList;
     
     public function __construct($requiredFields, $nonRequiredFields){
-        $this->mainErrorList = new ArrayObject();
         $this->fieldsErrorList = new ArrayObject();
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
         $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
         $this->verifyValues($this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFieldsErrorList());
     }
+
+    public function __clone(){}
     
     public function verifyRequired($reqList, $fieldsErrList){
         //Pour chaque champs requis, dans la liste, si le $_POST[$champs] n'existe pas ou est null, on l'ajoute à la liste d'erreurs et on l'enleve de la liste des valeurs à contrôler 
 
-        echo '-------------------------------------------------------------------verifyRequired()------------------------------------------------------------<br/>';
         foreach ($reqList as $field => $value){//Pour chaque champs requis du formulaire
-            echo $field.' testé<br/>';//test
             if (!isset($_POST[$field]) || empty($_POST[$field])) {//Si la donnée n'existe pas
-                echo $field.' pas bon<br/>';
                 $fieldsErrList[$field] = self::REQUIRED_ERROR;
                 unset($reqList[$field]);
             }
         }
-        echo '<br/>Liste des erreurs :<br/>';//test
-        foreach ($fieldsErrList as $key => $value) {//test
-            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
-        }
-        echo '<br/>Liste des champs requis restant à controler :<br/>';//test
-        foreach ($reqList as $key => $value) {//test
-            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
-        }
-        //$this->setRequiredFields($reqList);
-        //$this->setFieldsErrorList($fieldsErrList);
     }
 
 
     public function verifyValues($reqList, $nonReqList, $fieldsErrList){
         //pour chaque champs $field de $requiredFields, verifier si !preg_match(regexList[$field][regex]) > ajout de $fieldsErrorList[$field] = NOM_ERROR
 
-        echo '-------------------------------------------------------------------verifyValues()------------------------------------------------------------<br/>';
-        foreach ($reqList as $key => $value) {//test
-            echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
-        }
-        echo "<pre>";
-        var_dump($reqList);//test
-        var_dump($fieldsErrList);//test
-        echo "<pre>";
-
         foreach ($reqList as $field => $regName) {
-            echo "-------------------------\$field :---------------------------<br/>";
-            echo $field.'<br/>';
             if (!preg_match(self::$regexList[$regName]['regex'], $_POST[$field])) {
                 $fieldsErrList[$field] = self::$regexList[$regName]['error'];
             }
         }
         foreach ($nonReqList as $field => $regName) {
-            echo "-------------------------\$field :---------------------------<br/>";
-            echo $field.'<br/>';
             if (!preg_match(self::$regexList[$regName]['regex'], $_POST[$field])) {
                 $fieldsErrList[$field] = self::$regexList[$regName]['error'];
             }
         }
-        echo '<br/>Liste des erreurs dans les champs :<br/>';//test
-        if ($fieldsErrList != null) {
-            foreach ($fieldsErrList as $key => $value) {//test
-                echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
-            }
+    }
+
+    public function root($successPage, $errorPage){
+        if (count($this->getFieldsErrorList()) > 0) {
+            header('Location: '.$errorPage);
+        } else {
+            header('Location: '.$successPage);
         }
-        echo '<br/>Liste des erreurs principales :<br/>';//test
-        if ($this->getMainErrorList() != null) {
-            foreach ($this->getMainErrorList() as $key => $value) {//test
-                echo 'Clé : '.$key.' | Valeur : '.$value.'<br/>';
+    }
+
+    public function displayFieldErrors($field){//A TESTER
+        foreach ($this->getFieldsErrorList() as $key => $value) {
+            if ($key === $field) {
+                return $value;
             }
         }
     }
-    
-    public function arrayVerify($table){
-        try {
-            if (is_array($table)) {
-                foreach ($table as $key => $value) {
-                    if (!in_array($value, self::$regexList)) {
-                        //Si valeur ne se trouve pas dans la liste des regex disponibles.
-                        throw new Error('Expression régulière introuvable : vérifier les tableaux passés au constructeur');
-                    }
-                }
-            } else {
-                return true;
-            }
-        } catch (Exception $e) {
-            $this->getMainErrorList()->append($e->getMessage());
-            //TODO : retour a la page du formulaire !!!!
-        } finally {
-            return false;
+
+    public function serialization($instance){
+        $_SESSION['formControl'] = serialize(clone($instance));
+    }
+
+    public static function unSerialization(){
+        if (isset($_SESSION['formControl'])){
+            return unserialize($_SESSION['formControl']);
         }
     }
     
@@ -170,31 +152,27 @@ class FormControl {
         return $this->requiredFields;
     }
     
-    public function setRequiredFields($tableau){//VERIFIER
-        $this->requiredFields = new ArrayObject($tableau);
+    public function setRequiredFields($tableau){
+        if (is_array($tableau)) {
+            $this->requiredFields = new ArrayObject($tableau);
+        }
     }
     
     public function getNonRequiredFields(){
         return $this->nonRequiredFields;
     }
     
-    public function setNonRequiredFields($tableau){//VERIFIER
-        $this->nonRequiredFields = new ArrayObject($tableau);
-    }
-    
-    public function getMainErrorList() {
-        return $this->mainErrorList;
-    }
-    
-    public function setMainErrorList($tableau) {//VERIFIER
-        $this->mainErrorList = new ArrayObject($tableau);
+    public function setNonRequiredFields($tableau){
+        if (is_array($tableau)) {
+            $this->nonRequiredFields = new ArrayObject($tableau);
+        }
     }
     
     public function getFieldsErrorList() {
         return $this->fieldsErrorList;
     }
     
-    public function setFieldsErrorList($tableau) {//VERIFIER
+    public function setFieldsErrorList($tableau) {
         $fieldsErrorList = new ArrayObject($tableau);
     }
 }
