@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require 'FormControl.php';
+$verify = FormControl::unSerialization();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,13 +88,13 @@
                             <div class="form-group">
                                 <label for="nom" class="form-check-label">Votre nom* :</label>
                                 <input type="text" id="nom" name="nom" class="form-control" required autofocus>
-                                <span id="nom-erreur"></span>
+                                <span id="nom-erreur"><?php echo $verify->displayFieldError('nom'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="prenom" class="form-check-label">Votre prénom* :</label>
                                 <input type="text" id="prenom" name="prenom" class="form-control" required>
-                                <span id="prenom-erreur"></span>
+                                <span id="prenom-erreur"><?php echo $verify->displayFieldError('prenom'); ?></span>
                             </div>
 
                             <div class="form-group">
@@ -110,37 +114,37 @@
                                     <input type="radio" id="genre" name="genre" value="neutre" class="form-check-input">
                                     <label for="neutre" class="form-check-label">Neutre</label>
                                 </div>
-                                <span id="genre-erreur"></span>
+                                <span id="genre-erreur"><?php echo $verify->displayFieldError('genre'); ?></span>
                             </div>
                             
                             <div class="form-group">
                                 <label for="naissance" class="form-check-label">Date de naissance* :</label>
                                 <input type="date" id="naissance" name="naissance" min="1900-01-01" max="2021-03-18" class="form-control" required><!--required-->
-                                <span id="naissance-erreur"></span>
+                                <span id="naissance-erreur"><?php echo $verify->displayFieldError('naissance'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="cp" class="form-check-label">Code postal* :</label>
                                 <input type="text" id="cp" name="cp" class="form-control" required>
-                                <span id="cp-erreur"></span>
+                                <span id="cp-erreur"><?php echo $verify->displayFieldError('cp'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="adresse" class="form-check-label">Adresse :</label>
                                 <input type="text" id="adresse" name="adresse" class="form-control">
-                                <spans id="adresse-erreur"></spans>
+                                <spans id="adresse-erreur"><?php echo $verify->displayFieldError('adresse'); ?></spans>
                             </div>
 
                             <div class="form-group">
                                 <label for="ville" class="form-check-label">Ville :</label>
                                 <input type="text" id="ville" name="ville" class="form-control">
-                                <span id="ville-erreur"></span>
+                                <span id="ville-erreur"><?php echo $verify->displayFieldError('ville'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="form-check-label">Email* :</label>
                                 <input type="email" id="email" name="email" class="form-control" required>
-                                <span id="email-erreur"></span>
+                                <span id="email-erreur"><?php echo $verify->displayFieldError('email'); ?></span>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -154,19 +158,19 @@
                                     <option value="garantie">Garantie</option>
                                     <option value="marchandise">Retour de marchandise</option>
                                 </select>
-                                <span id="sujet-erreur"></span>
+                                <span id="sujet-erreur"><?php echo $verify->displayFieldError('sujet'); ?></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question" class="form-check-label">Votre question* :</label>
                                 <textarea id="question" name="question" class="form-control" required></textarea>
-                                <spans id="question-erreur"></spans>
+                                <spans id="question-erreur"><?php echo $verify->displayFieldError('question'); ?></spans>
                             </div>
 
                             <div class="form-group">
                                 <input type="checkbox" name="accord" id="accord" class="form-check-label" required>
                                 <label for="accord" id="accord" class="form-check-label">* J'accepte le traitement informatique de ce formulaire</label>
-                                <span id="accord-erreur"></span>
+                                <span id="accord-erreur"><?php echo $verify->displayFieldError('accord'); ?></span>
                             </div>
 
                             <div class="form-group">

@@ -86,6 +86,7 @@ class FormControl {
     private $fieldsErrorList;
     
     public function __construct($requiredFields, $nonRequiredFields){
+        $this->destroySession();
         $this->fieldsErrorList = new ArrayObject();
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
@@ -130,7 +131,7 @@ class FormControl {
         }
     }
 
-    public function displayFieldErrors($field){//A TESTER
+    public function displayFieldError($field){//A TESTER
         foreach ($this->getFieldsErrorList() as $key => $value) {
             if ($key === $field) {
                 return $value;
@@ -143,8 +144,14 @@ class FormControl {
     }
 
     public static function unSerialization(){
-        if (isset($_SESSION['formControl'])){
+        if (isset($_SESSION['formControl']) && $_SESSION['formControl'] != null){
             return unserialize($_SESSION['formControl']);
+        }
+    }
+
+    public function destroySession(){
+        if (isset($_SESSION['formControl'])) {
+            unset($_SESSION['formControl']);
         }
     }
     

@@ -19,7 +19,7 @@ $nonRequiredFields = array(
 );
 
 $verify = new FormControl($requiredFields, $nonRequiredFields);
-var_dump($verify);
+//var_dump($verify);
 $verify->serialization($verify);
-$verify->root('successPage.php', 'errorPage.php');
+$verify->root('successPage.php', 'contact.php');
 ?>
