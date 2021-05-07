@@ -2,10 +2,6 @@
 session_start();
 require 'FormControl.php';
 
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
-
 $requiredFields = array(
     "nom" => "nom",
     "prenom" => "nom",
@@ -23,7 +19,6 @@ $nonRequiredFields = array(
 );
 
 $verify = new FormControl($requiredFields, $nonRequiredFields);
-//var_dump($verify);
 $verify->serialization($verify);
 $verify->root('successPage.php', 'contact.php');
 ?>

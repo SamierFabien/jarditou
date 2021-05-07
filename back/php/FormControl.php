@@ -94,18 +94,18 @@ class FormControl {
         $this->fieldsErrorList = new ArrayObject();
         $this->setRequiredFields($requiredFields);
         $this->setNonRequiredFields($nonRequiredFields);
-        $this->hydrate(/*$this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFormValues()*/);
+        $this->hydrate();
         $this->verifyRequired($this->getRequiredFields(), $this->getFieldsErrorList());
         $this->verifyValues($this->getRequiredFields(), $this->getNonRequiredFields(), $this->getFieldsErrorList());
     }
 
     public function __clone(){}
 
-    public function hydrate(/*$reqList, $nonReqList, $formValues*/){
+    public function hydrate(){
         $_SESSION['formValues'] = $_POST;
-        echo '<pre>';
-        var_dump($_SESSION['formValues']);
-        echo '</pre>';
+        foreach ($_SESSION['formValues'] as $key => $value) {
+            $_SESSION['formValues'][$key]  = array(htmlspecialchars($key) => htmlspecialchars($value));
+        }
     }
     
     public function verifyRequired($reqList, $fieldsErrList){
@@ -148,7 +148,8 @@ class FormControl {
         if (isset($_SESSION['formValues']) && !is_null($_SESSION['formValues'])) {
             foreach ($_SESSION['formValues'] as $key => $value) {
                 if ($key === $field) {
-                    return 'value="'.$value.'"';
+                    $toReturn = 'value="'.strval($value).'"';
+                    return $toReturn;
                 }
             }
         }

@@ -89,7 +89,7 @@
                     </thead>
                     <tbody>
                         <tr class="bg-warning">
-                            <th scope="row"><img class="img-fluid my-auto w-25" src="../images/7.jpg" alt=""></th>
+                            <th scope="row"><img class="img-fluid my-auto w-25" src="../../front/statique/images/7.jpg" alt=""></th>
                             <td>7</td>
                             <td>Barbecues</td>
                             <td>Aramis</td>
@@ -97,7 +97,7 @@
                             <td>Brun</td>
                         </tr>
                         <tr>
-                            <th scope="row"><img class="img-fluid my-auto w-25" src="../images/8.jpg" alt=""></th>
+                            <th scope="row"><img class="img-fluid my-auto w-25" src="../../front/statique/images/8.jpg" alt=""></th>
                             <td>8</td>
                             <td>Barbecues</td>
                             <td>Athos</td>
@@ -105,7 +105,7 @@
                             <td>Noir</td>
                         </tr>
                         <tr class="bg-warning">
-                            <th scope="row"><img class="img-fluid my-auto w-25" src="../images/11.jpg" alt=""></th>
+                            <th scope="row"><img class="img-fluid my-auto w-25" src="../../front/statique/images/11.jpg" alt=""></th>
                             <td>11</td>
                             <td>Barbecues</td>
                             <td>Clatronic</td>
@@ -113,7 +113,7 @@
                             <td>Chrome</td>
                         </tr>
                         <tr>
-                            <th scope="row"><img class="img-fluid my-auto w-25" src="../images/12.jpg" alt=""></th>
+                            <th scope="row"><img class="img-fluid my-auto w-25" src="../../front/statique/images/12.jpg" alt=""></th>
                             <td>12</td>
                             <td>Barbecues</td>
                             <td>Camping</td>
@@ -121,7 +121,7 @@
                             <td>Noir</td>
                         </tr>
                         <tr class="bg-warning">
-                            <th scope="row"><img class="img-fluid my-auto w-25" src="../images/13.jpg" alt=""></th>
+                            <th scope="row"><img class="img-fluid my-auto w-25" src="../../front/statique/images/13.jpg" alt=""></th>
                             <td>13</td>
                             <td>Brouette</td>
                             <td>Green</td>
