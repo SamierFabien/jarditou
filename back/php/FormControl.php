@@ -53,23 +53,23 @@ class FormControl {
     const SELECTED = 'selected';
 
     /*Regex de contrôle et erreurs associées       /!\ php7.3 = pcre2 >>> les "-" doivent être échappés /!\ */
-    const REQUIRED_ERROR = 'Ce champs est obligatoire';//Erreurs générique quand il n'y a rien dans un champs requis
+    const REQUIRED_ERROR = '<span id="nom-erreur" class="btn alert-danger w-100 mt-1">Ce champs est obligatoire</span>';//Erreurs générique quand il n'y a rien dans un champs requis
     const NOM_REGEX = '~^[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ]([\'\-\s])?[a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+([\'\-\s][a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ][a-zàáâãäåæçèéêëìíîïñòóôõöœũűùúûüýÿŷ]+)?$~';
-    const NOM_ERROR = 'Exemples valides : "Dupont", "dupont", "Jean Claude", "jean claude", "Jean-Claude", "N\'Bekele"';
+    const NOM_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Exemples valides : "Dupont", "dupont", "Jean Claude", "jean claude", "Jean-Claude", "N\'Bekele"</span>';
     const CODEPOSTAL_REGEX = '~^[0-9]{5}$~';
-    const CODEPOSTAL_ERROR = 'Mauvais format : composé de 5 chiffres uniquement.';
+    const CODEPOSTAL_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Mauvais format : composé de 5 chiffres uniquement</span>';
     const TELEPHONE_REGEX = '~^[0-9]{10}$|[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}([\s-./])?[0-9]{2}$~';
-    const TELEPHONE_ERROR = 'Exemples valides : "0699999999", "06 99 99 99 99", "06-99-99-99-99", "06.99.99.99.99"';
+    const TELEPHONE_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Exemples valides : "0699999999", "06 99 99 99 99", "06-99-99-99-99", "06.99.99.99.99"</span>';
     const EMAIL_REGEX = '~^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$~';
-    const EMAIL_ERROR = 'Structure d\'une adresse e-mail : "moi@exemple.com".';
+    const EMAIL_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Structure d\'une adresse e-mail : "moi@exemple.com"</span>';
     const DATE_REGEX = '~^[0-9]{4}[\s\-/][0-9]{2}[\s\-/][0-9]{2}$|[0-9]{2}[\s\-/][0-9]{2}[\s\-/][0-9]{4}$~';
-    const DATE_ERROR = 'Mauvais format. Formats supporté : "00/00/0000" "0000/00/00" avec des slashs, espaces et tirets comme séparateurs.';
+    const DATE_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Mauvais format. Formats supporté : "00/00/0000" "0000/00/00" avec des slashs, espaces et tirets comme séparateurs.</span>';
     const GENRE_REGEX = '~^femme$|^homme$|^neutre$~';
-    const GENRE_ERROR = 'Soit : "femme", "homme", ou "neutre"';
+    const GENRE_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Soit : "femme", "homme", ou "neutre"</span>';
     const TEXTE_REGEX = '~[a-zA-Z0-9ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåæçèéêëìíîïñòóôõöŒœŨũŰűùúûüýÿŶŷŸ\'\s\-.]+~';
-    const TEXTE_ERROR = 'Doit être composé de lettres et de chiffres ainsi que " ", "-", "."';
+    const TEXTE_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Doit être composé de lettres et de chiffres ainsi que " ", "-", "."</span>';
     const SELECTED_REGEX = '~^on$~';
-    const SELECTED_ERROR = 'Vous devez accepter en cochant cette case';
+    const SELECTED_ERROR = '<span id="nom-erreur" class="btn alert-warning w-100 mt-1">Vous devez accepter en cochant cette case</span>';
     
     public static $regexList = [
         self::NOM =>        ['regex' => self::NOM_REGEX,          'error' => self::NOM_ERROR],
@@ -104,7 +104,7 @@ class FormControl {
     public function hydrate(){
         $_SESSION['formValues'] = $_POST;
         foreach ($_SESSION['formValues'] as $key => $value) {
-            $_SESSION['formValues'][$key]  = array(htmlspecialchars($key) => htmlspecialchars($value));
+            $_SESSION['formValues'][$key]  = $value;
         }
     }
     
@@ -148,8 +148,9 @@ class FormControl {
         if (isset($_SESSION['formValues']) && !is_null($_SESSION['formValues'])) {
             foreach ($_SESSION['formValues'] as $key => $value) {
                 if ($key === $field) {
-                    $toReturn = 'value="'.strval($value).'"';
-                    return $toReturn;
+                    //$toReturn = 'value="'.strval($value).'"';
+                    //return $toReturn;
+                    return 'value="'.$value.'"';
                 }
             }
         }
@@ -160,13 +161,14 @@ class FormControl {
         if (isset($_SESSION['formErrors']) && !is_null($_SESSION['formErrors'])) {
             foreach ($_SESSION['formErrors'] as $key => $value) {
                 if ($key === $field) {
+                    //return $value;
                     return $value;
                 }
             }
         }
     }
 
-    public static function displayFieldErrors(){//A TESTER
+    public static function displayFieldsErrors(){//A TESTER
         if (isset($_SESSION['formErrors']) && !is_null($_SESSION['formErrors'])) {
             foreach ($_SESSION['formErrors'] as $key => $value) {
                 echo $value;
